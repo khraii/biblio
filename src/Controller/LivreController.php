@@ -26,6 +26,16 @@ class LivreController extends AbstractController
     }
 
     /**
+     * @Route("/byauteur", name="livre_byauteur", methods={"GET"})
+     */
+    public function byauteur(LivreRepository $livreRepository): Response
+    {
+        return $this->render('livre/byauteur.html.twig', [
+            'livres' => $livreRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="livre_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response

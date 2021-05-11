@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const createList = (result) => {
         let innerList = '<div class="list-group">';
         result.forEach(element => {
-            innerList += '<a href="#" class="lest-group-item list-group-item-action"'
+            innerList += '<a href="/livre/byauteur?auteur=' + element.auteur + '" class="lest-group-item list-group-item-action>' + element.auteur + '</a>'
         });
         innerList += '</div>';
         return innerList;
