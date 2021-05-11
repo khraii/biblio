@@ -5,4 +5,37 @@
 {% block body %}
 <h1> Quel livre souhaitez-vous rendre? </h1>
 
+<table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>user</th>
+                <th>livre</th>
+                <th>Date_sortie</th>
+                <th>Date_rendu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emprunt in emprunts %}
+            <tr>
+                <td>{{ emprunt.id }}</td>
+                <td>{{ emprunt.user.prenom }}</td>
+                <td>{{ emprunt.livre.titre }}</td>
+                <td>{{ emprunt.dateSortie ? emprunt.dateSortie|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ emprunt.dateRendu ? emprunt.dateRendu|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('emprunt_show', {'id': emprunt.id}) }}">show</a>
+                    <a href="{{ path('rendu', {'id': emprunt.id}) }}">Rendre</a>
+                    <a href="{{ path('emprunt_edit', {'id': emprunt.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
