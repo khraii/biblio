@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-		           and uncomment the following Encore helpers to start using Symfony UX #}
+						           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<link rel="stylesheet" href="https://bootswatch.com/5/yeti/bootstrap.min.css">
 		{% endblock %}
@@ -40,7 +40,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('emprunt_index')}}">emprunt</a>
 						</li>
-            <li class="nav-item">
+						<li class="nav-item">
 							<a class="nav-link" href="{{path('rendre_livre')}}">rendre livre</a>
 						</li>
 						<li class="nav-item ">
@@ -52,10 +52,14 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{path('app_logout')}}">logout</a>
 						</li>
-					</div>
-				</ul>
+						<form class="d-flex" method="POST" name="search" action = "{{path('search_auteur')}}">
+							<input class="form-control me-sm-2" type="text" placeholder="Search">
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					</ul>
 
+				</div>
 			</div>
-		</div>
+		</body>
 	</body>
 </html></nav>{% block body %}{% endblock %}</body></html>

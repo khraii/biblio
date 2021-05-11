@@ -2,17 +2,19 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Livre;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class LivreFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $livre = new Livre();
         for ($i=0; $i < 20 ; $i++) { 
-            $livre->setAuteur("auteu".$i);
+            $faker = Factory::create();
+            $livre = new Livre();
+            $livre->setAuteur($faker->name);
             $livre->setTitre('titre'.$i);
             $manager->persist($livre);
         }
