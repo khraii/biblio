@@ -7,6 +7,7 @@ use App\Repository\LivreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SearchAuteurController extends AbstractController
@@ -20,7 +21,9 @@ class SearchAuteurController extends AbstractController
         $search = explode("=",$request->getContent());
         $search = str_replace("+"," ",$search[1]);
         $tbauteur = $livreRepository->findAuteurLike($search);
-        dd($tbauteur);
+        $response = json_encode($tbauteur);
+        $response = new JsonResponse(['auteur' => $response]);
+        dd($tbauteur, $response);
         return $this->render('search_auteur/index.html.twig', [
             'controller_name' => 'SearchAuteurController',
         ]);
