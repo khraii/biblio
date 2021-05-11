@@ -1,22 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const axios = require('axios').default;
+    let listAuteur;
     const form = document.forms.search;
     const url = form.action;
-    let key = form.auteur.value;
+    const createList = (result) => {
+        let innerList = '<div class="list-group">';
+        result.forEach(element => {
+            innerList += '<a href="#" class="lest-group-item list-group-item-action"'
+        });
+        innerList += '</div>';
+        return innerList;
+    }
 
-    form.auteur.addEventListener('keyup', function() {
-        let key = this.value;
-        console.dir(key);
+
+
+    const ajaxSearch = () => {
+        let key = form.auteur.value;
         axios.post(url, {
                 key: key,
             })
             .then(function(response) {
-                console.log(response);
+                let result = response.data
+                listAuteur.innerHTML = createList(result)
+                console.dir(result);
             })
             .catch(function(error) {
                 console.log(error);
             });
+    }
 
+
+    form.auteur.addEventListener('keyup', () => {
+        ajaxSearch();
     });
-    console.dir(url);
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        ajaxSearch();
+    })
+
+
 })

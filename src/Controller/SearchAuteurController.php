@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Livre;
 use App\Repository\LivreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +16,12 @@ class SearchAuteurController extends AbstractController
      */
    public function new(Request $request, LivreRepository $livreRepository): Response
     {
-        $livre = new Livre();
-        $search = explode("=",$request->getContent());
-        $search = str_replace("+"," ",$search[1]);
-        $tbauteur = $livreRepository->findAuteurLike($search);
-        $response = json_encode($tbauteur);
-        $response = new JsonResponse(['auteur' => $response]);
-        dd($tbauteur, $response);
-        return $this->render('search_auteur/index.html.twig', [
-            'controller_name' => 'SearchAuteurController',
-        ]);
+        $search = json_decode($request->getContent());
+        $tbauteur = $livreRepository->findAuteurLike($search->key);
+        $tbreturn = [];
+        foreach ($tbauteur as $key => $value) {
+            $tbreturn[$key] = ['id' => $value->getId(),'auteur' => $value->getAuteur()];   
+        }
+        return new JsonResponse(["tbauteur" => $tbreturn]);
     }
 }
