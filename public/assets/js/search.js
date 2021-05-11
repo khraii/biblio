@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let listAuteur;
+    let listAuteur = document.querySelector(".listAuteur");
     const form = document.forms.search;
     const url = form.action;
     const createList = (result) => {
